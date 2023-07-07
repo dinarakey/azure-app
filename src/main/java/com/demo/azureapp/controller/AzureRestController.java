@@ -5,6 +5,7 @@ import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.models.BlobItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,6 +37,11 @@ public class AzureRestController {
     @GetMapping("/info")
     public String info() {
         return container.getBlobClient("No ithernet.txt").downloadContent().toString();
+    }
+
+    @GetMapping("load/{filename}")
+    public byte[] load(@PathVariable String filename){
+        return container.getBlobClient(filename).downloadContent().toBytes();
     }
 
     @PostMapping("/share")
