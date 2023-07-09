@@ -16,6 +16,9 @@ repositories {
 }
 
 dependencies {
+	// https://mvnrepository.com/artifact/com.azure/azure-storage-blob
+	implementation 'com.azure:azure-storage-blob:12.22.3'
+
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
