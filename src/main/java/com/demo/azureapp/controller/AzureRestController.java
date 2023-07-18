@@ -3,6 +3,10 @@ package com.demo.azureapp.controller;
 import com.azure.storage.blob.BlobClient;
 import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.models.BlobItem;
+import com.demo.azureapp.model.Document;
+import com.demo.azureapp.repository.DocumentRepository;
+import com.demo.azureapp.service.Consumer;
+import com.demo.azureapp.service.Sender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class AzureRestController {
@@ -19,9 +24,24 @@ public class AzureRestController {
     @Autowired
     private BlobContainerClient container;
 
+    @Autowired
+    private DocumentRepository repository;
+
     @GetMapping("/hi")
     public String greetings() {
         return "greetings!";
+    }
+
+    @GetMapping("/send")
+    public String send() {
+        Sender.publishEvents();
+        return "OK!";
+    }
+
+    @GetMapping("/read")
+    public String read() throws InterruptedException {
+        Consumer.consume();
+        return "OK!";
     }
 
     @GetMapping("/blob")
@@ -54,5 +74,18 @@ public class AzureRestController {
             return file.getOriginalFilename() + " file shared!";
         }
 
+    }
+
+    @GetMapping("/save")
+    public String save(){
+        Document document = new Document();
+        document.setName("FileName");
+        repository.save(document);
+        return "OK";
+    }
+
+    @GetMapping("/documents")
+    public List<Document> documents(){
+        return repository.findAll();
     }
 }

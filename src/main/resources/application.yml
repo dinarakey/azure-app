@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      database: dinaramongodb
+      uri: ${spring-data-mongo-uri}
+
+azure:
+  keyvault:
+    enable: true
+    uri: https://dinaraappkeys.vault.azure.net/
+    client-id: 0b644765-2e3d-4661-8de8-c559e00e2f3a
+    client-key: OGA8Q~gt5wURpqxRcv9qDagv2Bef6OGanoxtOaOw
+    tenant-id: ba1a18a6-bb7c-4c28-8dd6-ec9c428d09c5
+    token-acquire-timeout-seconds: 60
+    refresh-interval: 1800000

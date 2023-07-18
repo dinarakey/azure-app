@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AzureBlobContainer {
 
-    @Value("${azure.blob.url}")
+    @Value("${azure.blob.string}")
     private String azureUrl;
 
     @Value("${azure.blob.container}")
